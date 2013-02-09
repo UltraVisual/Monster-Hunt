@@ -1,0 +1,11 @@
+*.iml
+/art
+/design
+weltmeister.html
+*.iml
+node_modules/
+dev/js/libs/impact/lib/impact
+dev/js/libs/impact/tools
+dev/js/libs/impact/lib/weltmeister
+dev/js/libs/tweenlite
+dist/
