@@ -6,11 +6,10 @@ ig.module(
     )
     .defines(function () {
         SpritesData = {
-            SPIKES:0,
+            SPIKES:4,
             EGG:3,
-            GUN:1,
-            COIN:4,
+            BALL:0,
+            DOGGY_BISCUIT:1,
             FIRE_BALL:2
         };
-
     });

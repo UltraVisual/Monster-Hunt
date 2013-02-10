@@ -31,10 +31,10 @@
     else{
         $requestUri = $_SERVER['HTTP_HOST'];
         if(strrpos($requestUri, 'localhost') > -1){
-            echo '<script type="text/javascript" src="../../../../dist/archie.min.js"></script>' . "\n";
+            echo '<script type="text/javascript" src="../../../../dist/monster-hunt.min.js"></script>' . "\n";
         }
         else{
-            echo '<script type="text/javascript" src="dist/archie.min.js"></script>' . "\n";
+            echo '<script type="text/javascript" src="dist/monster-hunt.min.js"></script>' . "\n";
         }
     }
 

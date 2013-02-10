@@ -12,7 +12,7 @@ ig.module(
             pos: {x: 35, y: 35},
             score: 0,
             lives:3,
-            coins:{total:0, amount:0},
+            biscuits:{total:0, amount:0},
             hasGun:false,
             setHealth: function (val) {
                 this.health = val;
@@ -23,8 +23,8 @@ ig.module(
             setLives:function(val){
                this.lives = val;
             },
-            setCoins:function(val){
-               this.coins.amount = val;
+            setBiscuits:function(val){
+               this.biscuits.amount = val;
             }
         };
     });

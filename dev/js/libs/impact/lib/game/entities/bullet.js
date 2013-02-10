@@ -6,7 +6,7 @@ ig.module(
     )
     .defines(function () {
         EntityBullet = ig.Entity.extend({
-            animSheet: new ig.AnimationSheet('media/bullet.png', 16, 16),
+            animSheet: new ig.AnimationSheet('media/bullet.png', 32, 32),
             size: {x: 2, y: 1},
             callback: null,
             resetCallback: null,
@@ -42,7 +42,7 @@ ig.module(
                 }
             },
             check: function (other) {
-                if (typeof other.hit != 'undefined' && other.toString() !== 'Archie') {
+                if (typeof other.hit != 'undefined' && other.toString() !== 'Player') {
                     other.hit();
                     this.kill();
                 }

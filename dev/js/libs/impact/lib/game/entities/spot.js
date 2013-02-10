@@ -1,5 +1,5 @@
 ig.module(
-        'game.entities.egg'
+        'game.entities.spot'
     )
     .requires(
         'impact.entity',
@@ -7,7 +7,7 @@ ig.module(
         'game.models.sprites-data'
     )
     .defines(function () {
-        EntityEgg = EntityCollectible.extend({
+        EntitySpot = EntityCollectible.extend({
             sound: new ig.Sound('media/sounds/egg.*'),
             init: function (x, y, settings) {
                 this.parent(x, y, settings);
@@ -24,7 +24,7 @@ ig.module(
             },
             update: function () {
                 if (!this.tweenOut) {
-                    if (ig.game.model.coins.amount == ig.game.model.coins.total) {
+                    if (ig.game.model.biscuits.amount == ig.game.model.biscuits.total) {
                         this.currentAnim.alpha = 1;
                     }
                     else {

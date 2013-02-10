@@ -6,7 +6,7 @@ ig.module(
     )
     .defines(function () {
         EntityCheckpoint = ig.Entity.extend({
-            size: {x: 32, y: 64},
+            size: {x: 64, y: 128},
             _wmDrawBox: true,
             _wmBoxColor: 'rgba(0, 255, 0, 0.2)',
             checkAgainst: ig.Entity.TYPE.BOTH,

@@ -7,9 +7,10 @@ ig.module(
         'game.entities.bullet'
     )
     .defines(function () {
-        EntityArchie = ig.Entity.extend({
-            size: {x: 98, y: 128},
-            offset:{x:4, y: 0},
+        EntityPlayer = ig.Entity.extend({
+            self:null,
+            size: {x: 75, y: 128},
+            offset:{x:10, y: 0},
             friction: {x: 600, y: 0},
             animSheet: new ig.AnimationSheet('media/sam-sprite-sheet.png', 98, 128),
             maxVel: {x: 200, y: 300},
@@ -20,7 +21,7 @@ ig.module(
             jumping: false,
             accelGround: 400,
             accelAir: 600,
-            jump: 800,
+            jump: 1200,
             health: 10,
             isHit: false,
             flashAmount: 0,
@@ -37,27 +38,25 @@ ig.module(
             bullets: 0,
             oldAnim: null,
             keyDown: false,
-            hitSound: new ig.Sound('media/sounds/hurt.*'),
-            jumpSound: new ig.Sound('media/sounds/jump.*'),
-            shootSound: new ig.Sound('media/sounds/shoot.*'),
-            dieSound: new ig.Sound('media/sounds/die.*'),
-            respawnSound: new ig.Sound('media/sounds/respawn.*'),
+            hitSound: new ig.Sound('media/sounds/sfx.*'),
+            jumpSound: new ig.Sound('media/sounds/sfx.*'),
+            shootSound: new ig.Sound('media/sounds/sfx.*'),
+            dieSound: new ig.Sound('media/sounds/sfx.*'),
+            respawnSound: new ig.Sound('media/sounds/sfx.*'),
             init: function (x, y, settings) {
                 this.parent(x, y, settings);
+                this.self = this;
                 this.startPosition = {x: x, y: y};
-                this.addAnim('idle', 1, [0]);
-                this.addAnim('idle-with-gun', 1, [23]);
-                this.addAnim('walk-basic', 0.03, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]);
-                this.addAnim('walk-with-gun', 0.03, [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43]);
-                this.addAnim('jump', 0.03, [44]);
-                this.addAnim('jump-with-gun', 0.03, [45]);
-                this.addAnim('shooting', 0.01, [46]);
+                this.addAnim('idle', 1, [14]);
+                this.addAnim('walk-basic', 0.03, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]);
+                this.addAnim('jump', 0.03, [0]);
                 this.flip = false;
                 this.model = ig.game.model || new PlayerModel();
                 this.health = this.model.health;
-                if(ig.game.model.hasGun === true){
-                    this.enableGun();
-                }
+                this.currentAnim = this.anims[this.currentWalkMode];
+                //if(ig.game.model && ig.game.model.hasGun === true){
+                //this.enableGun();
+                //}
             },
             reset: function () {
                 this.alpha = 1;
@@ -78,7 +77,7 @@ ig.module(
                 }
                 ig.game.spawnEntity(EntityDeathExplosion, this.pos.x, this.pos.y, {callback: function () {
                     ig.game.resetPlayer();
-                    ig.game.spawnEntity(EntityArchie, x, y);
+                    ig.game.spawnEntity(EntityPlayer, x, y);
                     self.respawnSound.play();
                 }});
                 ig.game.model.hasGun = false;
@@ -86,7 +85,7 @@ ig.module(
 
             },
             toString:function(){
-                return 'Archie';
+                return 'Player';
             },
 
             hit: function (value) {
@@ -122,9 +121,6 @@ ig.module(
             enableGun: function () {
                 ig.game.model.hasGun = true;
                 this.shootable = this.hasGun = true;
-                this.currentWalkMode = 'walk-with-gun';
-                this.currentIdleMode = 'idle-with-gun';
-                this.currentJumpMode = 'jump-with-gun';
             },
             update: function () {
                 var self = this;
@@ -164,7 +160,7 @@ ig.module(
 
                 if (this.standing && ig.input.pressed('jump') || this.jumping && ig.input.pressed('jump')) {
                     if (this.jumpPressed <= 1) {
-                        this.vel.y = -this.jump;
+                        this.vel.y = -this.jump * 2;
                         this.jumping = true;
                         this.jumpPressed++;
                         this.jumpSound.play();
@@ -182,9 +178,11 @@ ig.module(
                 } else {
                     this.currentAnim = this.anims[this.currentWalkMode];
                 }
-                this.currentAnim.alpha = this.alpha;
+                if(this.currentAnim){
+                    this.currentAnim.alpha = this.alpha;
+                    this.currentAnim.flip.x = this.flip;
+                }
                 this.hasPassedHalfway = this.pos.x >= ig.system.width * 0.5;
-                this.currentAnim.flip.x = this.flip;
                 this.parent();
             },
 
@@ -194,7 +192,7 @@ ig.module(
                 }
             },
             isShooting: function () {
-                return this.currentAnim == this.anims['shooting']
+                return this.hasGun === true;
             }
         })
     });

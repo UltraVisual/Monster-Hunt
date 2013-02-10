@@ -11,7 +11,7 @@ ig.module(
         EntityGun = EntityCollectible.extend({
             init: function (x, y, settings) {
                 this.parent(x, y, settings);
-                this.addAnim('idle', 1, [SpritesData.GUN]);
+                this.addAnim('idle', 1, [SpritesData.BALL]);
             },
             check: function (other) {
                 if (typeof other.hit != 'undefined' && !this.tweenOut) {

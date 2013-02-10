@@ -5,11 +5,13 @@ ig.module(
         'impact.game',
         'impact.font',
         'game.models.player-model',
-        'game.entities.start-button'
+        'game.entities.start-button',
+        'game.levels.levelOne'
     )
     .defines(function () {
         MyGame = ig.Game.extend({
             levels: [
+                {level: LevelLevelOne, backGround: 'media/sky-one.png', biscuits: 5, title: 'Level One - The Outer Reaches'}
             ],
             model: new PlayerModel(),
             gravity: 300,
@@ -46,7 +48,8 @@ ig.module(
                 ig.input.bind(ig.KEY.R, 'restart');
                 ig.input.bind(ig.KEY.UP_ARROW, 'jump');
                 ig.input.bind(ig.KEY.SPACE, 'jump');
-                ig.input.bind(ig.KEY.X, 'shoot');
+                ig.input.bind(ig.KEY.X, 'proceed');
+                ig.input.bind(ig.KEY.Z, 'shoot');
                 ig.input.bind(ig.KEY.MOUSE1, 'mouse-pressed');
                 this.showStartScreen();
             },
@@ -59,7 +62,7 @@ ig.module(
                 self.model.setHealth(self.startData.health);
                 self.model.setLives(self.startData.lives);
                 self.model.setScore(this.startScore);
-                self.model.setCoins(0);
+                self.model.setBiscuits(0);
                 self.levelIndex--;
                 self.addLevel();
             },
@@ -111,8 +114,8 @@ ig.module(
                 this.startData = {lives: this.model.lives, health: this.model.health};
                 var levelData = this.levels[this.levelIndex];
                 if (typeof levelData != 'undefined') {
-                    this.model.coins.total = levelData.coins;
-                    this.model.coins.amount = 0;
+                    this.model.biscuits.total = levelData.biscuits;
+                    this.model.biscuits.amount = 0;
                     if (levelData.backGround) {
                         this.background = new ig.Image(levelData.backGround);
                     }
@@ -126,7 +129,7 @@ ig.module(
                 if (ig.input.state('restart')) {
                     this.restartLevel();
                 }
-                else if(ig.input.state('shoot')){
+                else if(ig.input.state('proceed')){
                     if (this.background == this.instructionsScreen) {
                         this.showFirstLevel();
                     }
@@ -162,7 +165,7 @@ ig.module(
             },
 
             _setCameraPosition: function () {
-                var player = this.getEntitiesByType(EntityArchie)[0];
+                var player = this.getEntitiesByType(EntityPlayer)[0];
                 if (player !== undefined) {
                     if (player.hasPassedHalfway) {
                         this.screen.x = player.pos.x - ig.system.width * 0.5;

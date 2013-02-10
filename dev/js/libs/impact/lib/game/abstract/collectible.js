@@ -6,8 +6,8 @@ ig.module(
     )
     .defines(function () {
         EntityCollectible = ig.Entity.extend({
-            animSheet: new ig.AnimationSheet('media/sprites.png', 32, 32),
-            size: {x: 32, y: 32},
+            animSheet: new ig.AnimationSheet('media/sprites.png', 100, 100),
+            size: {x: 100, y: 100},
             checkAgainst: ig.Entity.TYPE.BOTH,
             tweenOut: false,
             update: function () {

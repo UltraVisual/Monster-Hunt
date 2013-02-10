@@ -6,7 +6,7 @@ ig.module(
     )
     .defines(function () {
         EntityBlocker = ig.Entity.extend({
-            size: {x: 32, y: 32},
+            size: {x: 128, y: 128},
             _wmDrawBox: true,
             _wmBoxColor: 'rgba(255, 0, 0, 0.2)',
             checkAgainst: ig.Entity.TYPE.BOTH,
