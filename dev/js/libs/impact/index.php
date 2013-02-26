@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>Archie</title>
+    <title>Monster Hunt</title>
     <style type="text/css">
         html, body {
             background-color: #333;

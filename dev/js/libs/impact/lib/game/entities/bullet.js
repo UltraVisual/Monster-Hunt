@@ -7,7 +7,7 @@ ig.module(
     .defines(function () {
         EntityBullet = ig.Entity.extend({
             animSheet: new ig.AnimationSheet('media/bullet.png', 32, 32),
-            size: {x: 2, y: 1},
+            size: {x: 32, y: 32},
             callback: null,
             resetCallback: null,
             timer: null,

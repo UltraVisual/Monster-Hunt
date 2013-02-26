@@ -9,9 +9,9 @@ ig.module(
         EntityDeathExplosion = ig.Entity.extend({
             _wmInEditor: false,
             idleTimer: null,
-            lifetime: 1,
+            lifetime: 2,
             callback: null,
-            particles: 25,
+            particles: 20,
             init: function (x, y, settings) {
                 this.parent(x, y, settings);
                 for (var i = 0; i < this.particles; i++) {

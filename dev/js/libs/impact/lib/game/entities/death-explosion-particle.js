@@ -7,24 +7,21 @@ ig.module(
     .defines(function () {
         EntityDeathExplosionParticle = ig.Entity.extend({
             _wmInEditor: false,
-            size: {x: 4, y: 4},
+            size: {x: 32, y: 32},
             maxVel: {x: 160, y: 200},
-            lifetime: 2,
-            fadeTime: 5,
-            bounciness: 1,
-            vel: {x: 100, y: 30},
-            collides: ig.Entity.COLLIDES.LITE,
+            lifetime: 1.0,
+            fadeTime: 0.5,
+            bounciness: 0.6,
+            vel: null,
             colorOffset: 0,
-            totalColors: 4,
             idleTimer: null,
-            animSheet: new ig.AnimationSheet('media/blood.png', 8, 8),
+            gravityFactor: 0,
+            animSheet: new ig.AnimationSheet('media/blood.png', 32, 32),
             init: function (x, y, settings) {
-                this.parent(x, y, settings);
-                var frameID = Math.round(Math.random() * this.totalColors) + (this.colorOffset * (this.totalColors + 1));
-                this.addAnim('idle', 0.2, [frameID]);
-                this.vel.x = (Math.random() * 2 - 1 ) * this.vel.x;
-                this.vel.y = (Math.random() * 2 - 1 ) * this.vel.y;
+                this.addAnim('idle', 0.3, [0]);
+                this.vel = { x: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 100, y: (Math.random() < 0.5 ? -1 : 1) * Math.random() * 100 };
                 this.idleTimer = new ig.Timer();
+                this.parent(x, y, settings);
             },
             update: function () {
                 if (this.idleTimer && (this.idleTimer.delta() > this.lifetime)) {

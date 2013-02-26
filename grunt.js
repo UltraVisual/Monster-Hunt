@@ -1,6 +1,6 @@
 /*global module:false*/
 module.exports = function (grunt) {
-
+   var exec = require('child_process').exec;
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -43,6 +43,10 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.registerTask('clean', 'blah', function(){
+        exec('cd dist && rm monster-hunt.js && cd ../')
+    });
+
     grunt.loadNpmTasks('grunt-shell');
     // Default task.
     grunt.registerTask('default', 'build');
@@ -55,5 +59,5 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test-server', ['server', 'wait']);
-    grunt.registerTask('build', ['shell:build_impact', 'min'])
+    grunt.registerTask('build', ['shell:build_impact', 'min', 'clean'])
 };

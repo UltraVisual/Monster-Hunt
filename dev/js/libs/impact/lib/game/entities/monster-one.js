@@ -11,7 +11,7 @@ ig.module(
             animSheet: new ig.AnimationSheet('media/monster-one.png', 120, 103),
             flip: false,
             friction: {x: 150, y: 0},
-            speed: 14,
+            speed: 30,
             type: ig.Entity.TYPE.B,
             checkAgainst: ig.Entity.TYPE.BOTH,
             hasCollided: false,
@@ -61,7 +61,7 @@ ig.module(
             kill: function () {
                 this.parent();
                 this.dieSound.play();
-                ig.game.spawnEntity(EntityDeathExplosion, this.pos.x, this.pos.y);
+                ig.game.spawnEntity(EntityDeathExplosion, this.pos.x + (this.flip ? 0 : this.size.x), this.pos.y);
             }
         })
     });

@@ -6,11 +6,15 @@ ig.module(
         'impact.font',
         'game.models.player-model',
         'game.entities.start-button',
-        'game.levels.levelOne'
+        'game.levels.levelOne',
+        'game.levels.levelTwo',
+        'game.levels.levelThree'
     )
     .defines(function () {
         MyGame = ig.Game.extend({
             levels: [
+                {level: LevelLevelThree, backGround: 'media/sky-three.png', biscuits: 5, title: 'Level One - The Outer Reaches'},
+                {level: LevelLevelTwo, backGround: 'media/sky-two.png', biscuits: 4, title: 'Level Two - Into the swamp'},
                 {level: LevelLevelOne, backGround: 'media/sky-one.png', biscuits: 5, title: 'Level One - The Outer Reaches'}
             ],
             model: new PlayerModel(),
@@ -19,6 +23,7 @@ ig.module(
             background: null,
             clearColor: null,
             levelIndex: 0,
+            spot:null,
             self: null,
             startScore:0,
             skyOne: new ig.Image('media/sky-one.png'),
@@ -102,10 +107,10 @@ ig.module(
             levelComplete: function () {
                 this.startScore = this.model.score;
                 if(this.levelIndex < this.levels.length){
-                    setTimeout(self.showEndOfLevelScreen, 1000)
+                    setTimeout(self.showEndOfLevelScreen, 2000)
                 }
                 else{
-                    setTimeout(self.gameComplete, 1000)
+                    setTimeout(self.gameComplete, 2000)
                 }
             },
 

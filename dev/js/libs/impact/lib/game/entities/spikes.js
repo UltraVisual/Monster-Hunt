@@ -7,7 +7,7 @@ ig.module(
     )
     .defines(function () {
         EntitySpikes = ig.Entity.extend({
-            animSheet: new ig.AnimationSheet('media/sprites.png', 32, 32),
+            animSheet: new ig.AnimationSheet('media/spikes.png', 32, 32),
             size: {x: 32, y: 32},
             checkAgainst: ig.Entity.TYPE.BOTH,
             init: function (x, y, settings) {

@@ -7,21 +7,22 @@ ig.module(
     )
     .defines(function () {
         EntityPlatform = ig.Entity.extend({
-            size:{x:262, y:64},
-            animSheet: new ig.AnimationSheet('media/platform.png', 262, 64),
+            size:{x:280, y:131},
+            animSheet: new ig.AnimationSheet('media/platform.png', 280, 131),
             collides: ig.Entity.COLLIDES.FIXED,
             checkAgainst: ig.Entity.TYPE.NONE,
             gravityFactor: 0,
-            direction: 'up',
+            direction: 'horizontal',
             downDistance: 0,
             upDistance: 0,
             leftDistance: 0,
             rightDistance: 0,
             speed: 1,
             startPosition: 0,
+            selectedFrame: 0,
             init: function (x, y, settings) {
                 this.parent(x, y, settings);
-                this.addAnim('idol', 1, [0]);
+                this.addAnim('idol', 1, [this.selectedFrame]);
                 if (this.direction == 'vertical') {
                     this.startPosition = {x: this.pos.x, y: this.pos.y + (this.downDistance * this.size.y)};
                 }

@@ -119,7 +119,9 @@ ig.module(
                 }
             },
             enableGun: function () {
-                ig.game.model.hasGun = true;
+                if(ig.game.model){
+                    ig.game.model.hasGun = true;
+                }
                 this.shootable = this.hasGun = true;
             },
             update: function () {
@@ -141,7 +143,7 @@ ig.module(
                             this.bullets = 1;
                             this.oldAnim = this.currentAnim;
                             this.currentAnim = this.anims['shooting'];
-                            ig.game.spawnEntity(EntityBullet, this.pos.x + (this.flip ? 0 : 32), this.pos.y + 16, {flip: this.flip, callback: function () {
+                            ig.game.spawnEntity(EntityBullet, this.pos.x + (this.flip ? -32 : 96), this.pos.y + 50, {flip: this.flip, callback: function () {
                                 self.shootable = true;
                                 self.bullets = 0;
                             }, resetCallback: function () {
